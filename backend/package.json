@@ -1,10 +1,11 @@
 {
   "name": "hackathon",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is the backend for the Hackaton",
-  "main": "index.js",
+  "main": "/app/index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon ./app/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/MDEstrada314/HAKATON/issues"
   },
-  "homepage": "https://github.com/MDEstrada314/HAKATON#readme"
+  "homepage": "https://github.com/MDEstrada314/HAKATON#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
