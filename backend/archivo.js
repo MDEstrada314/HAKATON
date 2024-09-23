@@ -1,1 +1,0 @@
-console("hola mundo xd ")

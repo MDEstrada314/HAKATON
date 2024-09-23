@@ -1,0 +1,19 @@
+{
+  "name": "hackathon",
+  "version": "1.0.0",
+  "description": "This is the backend for the Hackaton",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MDEstrada314/HAKATON.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MDEstrada314/HAKATON/issues"
+  },
+  "homepage": "https://github.com/MDEstrada314/HAKATON#readme"
+}
