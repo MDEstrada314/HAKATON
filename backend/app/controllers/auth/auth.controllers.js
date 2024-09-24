@@ -1,5 +1,5 @@
-import userModel from "../models/users.js";
-import generateJWT from "../helpers/generateJWT.js";
+import userModel from "../../models/users.js";
+import generateJWT from "../../helpers/generateJWT.js";
 
 export const authUser = async (req, res) => { 
     try {
