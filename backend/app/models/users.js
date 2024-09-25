@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 
 const usersModel = mongoose.Schema({
     
-    name : {
+    firstName : {
         type: String,
         trim: true,
         required: true
