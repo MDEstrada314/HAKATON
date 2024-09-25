@@ -51,6 +51,10 @@ const usersModel = mongoose.Schema({
         type: String,
         enum: ["M", "F"],
         required: true,
+    },
+
+    profileImage: {
+        type: String,
     }
 
 

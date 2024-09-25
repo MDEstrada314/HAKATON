@@ -3,7 +3,7 @@ import User from "../../models/users.js";
 export const createUser = async (req, res) => {
 try {
     
-    const {firstName, middleName, lastName, secondLastName, email, password, rol, sex} = req.body;
+    const {firstName, middleName, lastName, secondLastName, email, password, rol, sex, profileImage} = req.body;
     
     const newUser = await new User({
         firstName,
@@ -13,20 +13,21 @@ try {
         email,
         password: User.encryptPassword(password),
         rol,
-        sex
+        sex,
+        profileImage
     });
 
     newUser.save();
 
     return res.status(200).json({
-        result: "Usuario Creado Existosamente",
+        result: "usuario creado existosamente",
         user: newUser
     });
 
 } catch (error) {
     console.log(error);
     return res.status(404).json({
-            result: "El contenido no se encontro"
+            result: "el contenido no se encontro"
         });
 }
 

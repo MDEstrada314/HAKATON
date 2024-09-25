@@ -23,6 +23,9 @@ router.post("/users", [
     .custom(checkEmail).withMessage("Ya existe un usuario con esa direccion de correo").bail(),
 
     check('password').notEmpty().withMessage('La contraseña es requerida').bail(),
+
+    check('profileImage').if(body("profileImage").exists().notEmpty()).isString().withMessage("No se pudo cargar la imagen, intente de nuevo"),
+
     validateDocuments
 
 ], createUser);
