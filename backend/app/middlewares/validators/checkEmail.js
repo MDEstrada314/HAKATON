@@ -4,8 +4,4 @@ export const checkEmail = async (email = "") => {
 
         const checkEmailDb = await users.findOne({email});
         if (checkEmailDb) throw new Error;
-
-
-   
-
 };

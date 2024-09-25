@@ -64,9 +64,9 @@ usersModel.statics.encryptPassword = (password = "") => {
 
 };
 
-usersModel.statics.comparePasswords = async(password, passwordRecieved) => {
+usersModel.statics.comparePasswords = (password, passwordRecieved) => {
 
-    const comparedPasswords = await bcryptjs.compare(password, passwordRecieved);
+    const comparedPasswords = bcryptjs.compareSync(password, passwordRecieved);
     return comparedPasswords;
 
 };

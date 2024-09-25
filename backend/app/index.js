@@ -24,5 +24,5 @@ app.use(uri, usersRoutes);
 
 
 app.listen(port, ()=> {
-    console.log(`Running on Port ${port}`)
+    console.log(`Running on Port ${port}`);
 })

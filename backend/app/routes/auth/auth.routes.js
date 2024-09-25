@@ -4,7 +4,7 @@ import { authUser } from "../../controllers/auth/auth.controllers.js";
 import  validateDocuments  from "../../middlewares/validate.documents.js";
 const router = Router();
 
-router.post("auth/users", [
+router.post("/auth/users", [
 
     check('email').isEmail().withMessage('Formato de correo inválido. Inténtalo de nuevo.').bail(),
     check('password').notEmpty().withMessage('La contraseña es requerida').bail(),
