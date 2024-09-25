@@ -9,13 +9,53 @@
     background-repeat: no-repeat;
     padding: 0;
     margin: 0;
+    display: flex;
+      
 }
 
-.container {
+.contenedor{
   
-    width: 50%;
-    height: 50vh;               
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centrar contenido dentro del container si es necesario */
+    align-items: center;
+    color: aliceblue;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+               
     
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+
+}
+.title h1 {
+    font-size: clamp(0.5rem, 5vw, 3rem); /* Mínimo: 1.5rem, Preferido: 5% del ancho de la pantalla, Máximo: 3rem */
+    /* letter-spacing: clamp(0.5rem, 5vw, 2rem); */
+    text-align: center;
+}
+
+
+
+.logo{
+    width: 8em;
+    margin-bottom: 20px;
+        
+}
+.form{
+    width: 20rem;
+    
+}
+
+.boton-inicio{
+    width: 100%;
 }
 
 
