@@ -49,7 +49,7 @@ const usersModel = mongoose.Schema({
 
     sex: {
         type: String,
-        enum: ["Male", "Female"],
+        enum: ["M", "F"],
         required: true,
     }
 
@@ -57,10 +57,9 @@ const usersModel = mongoose.Schema({
 }
 );
 
-usersModel.statics.encryptPassword = async(password) => {
-
-    const salt = await bcryptjs.genSalt();
-    const encryptedPassword =  await bcryptjs.hash(password, salt);
+usersModel.statics.encryptPassword = (password = "") => {
+    const salt =  bcryptjs.genSaltSync();
+    const encryptedPassword =   bcryptjs.hashSync(password, salt);
     return encryptedPassword;
 
 };
