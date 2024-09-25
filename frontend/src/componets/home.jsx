@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import Menu from "./menu";
+import "../componets/css/home.css"
+
 
 export default function Home() {
-
-
-
     return(
-        <div>
-            <h2>holaaaaaaaaaaa</h2>
+        <div className="Home">
+            <Menu className="menu"></Menu>           
+             <h2 className="">holaaaaaaaaaaa</h2>
         </div>
     )
 }
