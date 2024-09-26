@@ -24,7 +24,7 @@ const usersModel = mongoose.Schema({
     secondLastName: {
         type: String,
         trim: true,
-        required: true
+        default: ""
     },
 
     email: {

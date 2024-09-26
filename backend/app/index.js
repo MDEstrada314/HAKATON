@@ -3,6 +3,7 @@ import cors from "cors";
 import  dotenv from "dotenv";
 import authRoutes from "./routes/auth/auth.routes.js";
 import usersRoutes from "./routes/users/users.routes.js";
+import projectRoutes from "./routes/projects/project.routes.js";
 import { connectionMongoose } from "./database/connection.mongo.js";
 dotenv.config();
 connectionMongoose();
@@ -21,6 +22,7 @@ app.use(
 
 app.use(uri, authRoutes);
 app.use(uri, usersRoutes);
+app.use(uri, projectRoutes);
 
 
 app.listen(port, ()=> {
