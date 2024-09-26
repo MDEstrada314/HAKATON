@@ -1,6 +1,6 @@
-import Project from "../../models/project.js";
+import Project from "../../models/projects.js";
 
-async function getProjects(req, res){
+export async function getProjects(req, res){
     try{
         const [projects, total] = await Promise.all([
             Project.find(),
@@ -17,28 +17,25 @@ async function getProjects(req, res){
     }
 }
 
-async function createProject(req, res) {
+export async function createProject(req, res) {
+
     try{
-        const { name_project } = req.body;
+        
+        const { name, description, users = [] } = req.body;
 
         const newProject = await new Project({
-            name_project
+            name, description, users
         });
 
         newProject.save();
 
         return res.status(200).json({
-            result: "project created successfully",
+            result: "Proyecto creado satisfactoriamente",
             project: newProject
         });
 
     }catch(err){
         console.log(err);
-        return res.status(404).json({ result: "project not created" });
+        return res.status(404).json({ result: "el contenido no se econtro " });
     }
-}
-
-export {
-    getProjects,
-    createProject
 }

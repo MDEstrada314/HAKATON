@@ -4,6 +4,7 @@ import  dotenv from "dotenv";
 import authRoutes from "./routes/auth/auth.routes.js";
 import usersRoutes from "./routes/users/users.routes.js";
 import projectRoutes from "./routes/projects/project.routes.js";
+import activitiesRoutes from "./routes/activities/activities.routes.js";
 import { connectionMongoose } from "./database/connection.mongo.js";
 dotenv.config();
 connectionMongoose();
@@ -23,6 +24,7 @@ app.use(
 app.use(uri, authRoutes);
 app.use(uri, usersRoutes);
 app.use(uri, projectRoutes);
+app.use(uri, activitiesRoutes);
 
 
 app.listen(port, ()=> {
