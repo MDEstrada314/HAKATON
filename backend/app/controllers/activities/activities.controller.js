@@ -2,10 +2,10 @@ import Activities from "../../models/activities.js";
 
 export async function getActivities(req, res){
     try{
-        const { id } = req.body;
+        const { user } = req.body;
             const [activities, total] = await Promise.all([
-                Activities.find({users: id}).populate({path: "users", select: { password:0,  __v:0 , profileImage: 0}}),
-                Activities.countDocuments({users: id})
+                Activities.find({users: user._id}).populate({path: "users", select: { password:0,  __v:0 , profileImage: 0}}),
+                Activities.countDocuments({users: user._id})
             ]);
             
             return res.status(200).json({
@@ -52,7 +52,7 @@ export async function createActivity(req, res) {
 
     }catch(err){
         console.log(err);
-        return res.status(404).json({ result: "No fue posible crear la actividad." });
+        return res.status(404).json({ result: "No fue posible crear la actividad. Intentelo Nuevamente" });
     }
 }
 

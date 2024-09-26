@@ -2,15 +2,29 @@ import Project from "../../models/projects.js";
 
 export async function getProjects(req, res){
     try{
-        const [projects, total] = await Promise.all([
-            Project.find(),
-            Project.countDocuments()
-        ]);
+        const {user} = req.body;
+        if (user.rol === "ADMIN") { 
+            const [projects, total] = await Promise.all([
+                Project.find({},{createdAt: 0, __v: 0}).populate('users', 'firstName lastName email'),
+                Project.countDocuments()
+            ]);
+            return res.status(200).json({
+                projects,
+                total
+            });
+        } else {
+            const [projects, total] = await Promise.all([
+                Project.find({users: { $in: user._id}}, {createdAt: 0, __v: 0}).populate('users', 'firstName lastName email'),
+                Project.countDocuments()
+            ]);
+            return res.status(200).json({
+                projects,
+                total
+            });
+        }
 
-        return res.status(200).json({
-            projects,
-            total
-        });
+
+        
     }catch(err){
         console.log(err);
         return res.status(404).json({ result: "Projectos no encontrados" });

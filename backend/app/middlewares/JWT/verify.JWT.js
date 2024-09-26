@@ -7,13 +7,13 @@ export const verifyJWT = async (req = request, res = response, next) => {
     const token = req.headers["jwt"];
 
     const decoded = jwt.verify(token, process.env.PRIVATE_KEY);
-    const id = await User.findOne({ _id: decoded.id }, {_id: 1});
+    const id = await User.findOne({ _id: decoded.id }, {_id: 1, rol: 1});
 
     if (!id._id) return res.status(401).json({
         result: "La sesion se cerro vuelve a iniciar sesion"
     });
 
-    req.body.id = id._id;
+    req.body.user = id;
     next();
   } catch (err) {
     res.status(401).json({
