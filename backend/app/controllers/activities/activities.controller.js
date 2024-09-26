@@ -2,22 +2,29 @@ import Activities from "../../models/activities.js";
 
 async function getActivities(req, res){
     try{
-        const [activities, total] = await Promise.all([
-            Activities.find(),
-            Activities.countDocuments()
-        ]);
+        const { id_user, rol } = req.body;
+        const queries = rol === "ADMIN" ? {} : { users: id_user };
 
-        return res.status(200).json({
-            activities,
-            total
-        });
+        if(id_user){
+            const [activities, total] = await Promise.all([
+                Activities.find(queries).populate({path: "users", select: { password:0,  __v:0 }}),
+                Activities.countDocuments(queries)
+            ]);
+    
+            return res.status(200).json({
+                total,
+                activities
+            });
+        }else{
+            return res.status(404).json({result: "id_user is required"});
+        }
     }catch(err){
         console.log(err);
         return res.status(404).json({ result: "Activities not found" });
     }
 }
 
-async function createActivities(req, res) {
+async function createActivity(req, res) {
     try{
         const { 
             name,
@@ -25,8 +32,9 @@ async function createActivities(req, res) {
             project,
             users,
             timeSpent,
-            finished,
-            // createdAt
+            startedAt,
+            finishedAt,
+            finished
         } = req.body;
 
         const newActivity = await new Activities({ 
@@ -34,9 +42,10 @@ async function createActivities(req, res) {
             description,
             project,
             users,
+            startedAt,
+            finishedAt,
             timeSpent,
-            finished,
-            // createdAt
+            finished
         });
 
         newActivity.save();
@@ -52,7 +61,26 @@ async function createActivities(req, res) {
     }
 }
 
+async function updateActivity(req, res){
+    try{
+        const { id } = req.params;
+        const { finished } = req.body;
+
+        const newActivity = await Activities.findByIdAndUpdate(id, { finished }, {new: true}).populate({path: "users", select: { password:0, __v:0 }});
+
+        return res.status(200).json({
+            result: "activity updated successfully",
+            activity: newActivity
+        });
+
+    }catch(err){
+        console.log(err);
+        return res.status(404).json({ result: "activity not created" });
+    }
+}
+
 export {
     getActivities,
-    createActivities
+    createActivity,
+    updateActivity
 }

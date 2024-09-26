@@ -15,11 +15,11 @@ const activitySchema = mongoose.Schema({
         ref: 'projects',
         required: true
     },
-    users: [{
+    users: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    }],
+    },
     timeSpent: {
         type: Number, 
         required: true

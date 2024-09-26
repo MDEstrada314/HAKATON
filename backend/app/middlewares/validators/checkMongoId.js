@@ -1,11 +1,13 @@
-import { check } from "express-validator";
-
+import User from "../../models/users.js";
 export const checkMongoId = async(mongoIds= "") => {
-    mongoIds.forEach(id => {
-        if (!check(id).isMongoId()) {
-            throw new Error;
-        } else {
+        
+        const count = await User.countDocuments({
+            _id: { $in : mongoIds}
+        });
+
+        if (count === mongoIds.length) {
             return true;
+        } else {
+            throw new Error;
         }
-    });
 }

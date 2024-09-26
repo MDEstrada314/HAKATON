@@ -12,7 +12,7 @@ router.post("/projects", [
         .isString().withMessage("Nombre Invalido. Inténtalo de nuevo."),
     check("description").if(body("middleName").exists().notEmpty())
         .isString().withMessage("El segundo nombre no debe contener numeros").bail(),
-    check("users").if(body("middleName").exists().notEmpty())
+    check("users").if(body("users").exists().notEmpty())
         .isArray().withMessage("Usuario Invalido. Inténtalo de nuevo.").bail()
         .custom(checkMongoId).withMessage("Usuario Invalido. Inténtalo de nuevo.").bail(),
     validateDocuments
