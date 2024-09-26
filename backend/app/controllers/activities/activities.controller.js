@@ -1,5 +1,5 @@
 import Activities from "../../models/activities.js";
-
+import Project from "../../models/projects.js";
 export async function getActivities(req, res){
     try{
         const { user } = req.body;
@@ -56,7 +56,7 @@ export async function createActivity(req, res) {
     }
 }
 
-export async function updateActivity(req, res){
+export async function updateActivity(req, res) {
     try{
         const { id } = req.params;
         const { finished } = req.body;
@@ -74,3 +74,44 @@ export async function updateActivity(req, res){
     }
 }
 
+export async function getProjectActivities(req, res) { 
+    try{
+        const { user } = req.body;
+                const activities = await Project.aggregate([
+                    {
+                        $match: {}
+                    },
+                    {
+                        $lookup: {
+                            from: 'activities',
+                            localField: '_id',  
+                            foreignField: 'project', 
+                            as: 'activities' 
+                        }
+                    },
+                    {
+                        
+                        $project: {
+                            name: 1,           
+                            description: 1,     
+                            createdAt: 1,       
+                            activities: {
+                                name: 1,         
+                                description: 1,  
+                                timeSpent: 1,    
+                                users: 1        
+                            }
+                        }
+                    }
+                ])
+            
+            return res.status(200).json({
+                result: activities
+            });
+
+    }catch(err){
+        console.log(err);
+        return res.status(404).json({ result: "Las actividades no se encontraron, Intentalo de Nuevo" });
+    }
+
+}

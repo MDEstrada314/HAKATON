@@ -18,7 +18,6 @@ export const checkUsersMongoID = async(mongoIds= "") => {
 export const checkUserProjectMongoID = async(req = request, res = response, next)=> {
         const {project, users} = req.body;
         const findProject = await Project.findOne({_id: project, users: { $in: users}});
-        console.log(findProject);
         if (findProject) {
             next();
         } else {
@@ -27,3 +26,15 @@ export const checkUserProjectMongoID = async(req = request, res = response, next
             });
         }
 };
+
+export const checkProjectMongoID = async(req = request, res = response ,next) =>  {
+    const {project} = req.body;
+    const findProject = await Project.findOne({_id: project}, {_id: 1});
+    if (findProject) {
+        next();
+    } else {
+        res.status(400).json({
+            result: "El projecto no se encontro en la base de datos "
+        });
+    }
+}

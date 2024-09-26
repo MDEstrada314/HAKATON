@@ -1,8 +1,8 @@
 import { Router } from "express";
 import{ body, header, check } from "express-validator";
-import { getActivities, createActivity, updateActivity } from "../../controllers/activities/activities.controller.js";
+import { getActivities, createActivity, getProjectActivities, updateActivity } from "../../controllers/activities/activities.controller.js";
 import {verifyJWT, verifyTokenAdmin} from "../../middlewares/JWT/verify.JWT.js";
-import { checkUserProjectMongoID } from "../../middlewares/validators/checkMongoId.js";
+import { checkUserProjectMongoID,checkProjectMongoID } from "../../middlewares/validators/checkMongoId.js";
 import  validateDocuments  from "../../middlewares/validate.documents.js";
 
 const router = Router();
@@ -30,6 +30,15 @@ router.post("/activities", [
     checkUserProjectMongoID,
     verifyTokenAdmin
 ], createActivity);
+
+router.get('/activities/project',[
+    header("jwt").isJWT().withMessage("La sesion se cerro. Porfavor vuelve a iniciar sesion.").bail(),
+    check("project").notEmpty().withMessage("El projecto al que pertenece la actividad no existe.").bail()
+    .isMongoId().withMessage("Hubo un problema con la asignacion de proyecto. Refresque su pagina.").bail(),
+    validateDocuments,
+    checkProjectMongoID,
+    verifyJWT
+],getProjectActivities);
 
 router.put("/activities/:id", [
     header("jwt").isJWT().withMessage("La sesion se cerro. Porfavor vuelve a iniciar sesion.").bail(),
