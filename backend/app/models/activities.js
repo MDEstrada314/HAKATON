@@ -29,6 +29,17 @@ const activitySchema = mongoose.Schema({
         default: false,
         required: true
     },
+
+    startedAt: {
+        type: Date,
+        required: true
+    },
+
+    finishedAt: {
+        type: Date,
+        required: true
+    },
+    
     createdAt: {
         type: Date,
         default: Date.now

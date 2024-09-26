@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/activities", [
     validateDocuments
-],getActivities);
+], getActivities);
 
 router.post("/activities", [
     validateDocuments

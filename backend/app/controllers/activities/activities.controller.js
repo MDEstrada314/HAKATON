@@ -26,17 +26,17 @@ async function createActivities(req, res) {
             users,
             timeSpent,
             finished,
-            createdAt
+            // createdAt
         } = req.body;
 
-        const newActivity = await new Project({ 
+        const newActivity = await new Activities({ 
             name,
             description,
             project,
             users,
             timeSpent,
             finished,
-            createdAt
+            // createdAt
         });
 
         newActivity.save();

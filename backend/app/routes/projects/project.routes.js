@@ -1,6 +1,7 @@
 import { Router } from "express";
 import{ body, check } from "express-validator";
 import { getProjects, createProject } from "../../controllers/projects/projects.controller.js";
+import { checkMongoId } from "../../middlewares/validators/checkMongoId.js";
 import  validateDocuments  from "../../middlewares/validate.documents.js";
 const router = Router();
 
@@ -12,7 +13,8 @@ router.post("/projects", [
     check("description").if(body("middleName").exists().notEmpty())
         .isString().withMessage("El segundo nombre no debe contener numeros").bail(),
     check("users").if(body("middleName").exists().notEmpty())
-        .isMongoId().withMessage("usuario invalido intente nuevamente"),
+        .isArray().withMessage("Usuario Invalido. Inténtalo de nuevo.").bail()
+        .custom(checkMongoId).withMessage("Usuario Invalido. Inténtalo de nuevo.").bail(),
     validateDocuments
 ], createProject);
 

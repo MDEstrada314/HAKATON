@@ -8,6 +8,7 @@ const projectSchema = mongoose.Schema({
     },
     description: {
         type: String,
+        default: "",
         trim: true
     },
     users: [{
