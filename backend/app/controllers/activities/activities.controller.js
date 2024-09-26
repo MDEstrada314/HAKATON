@@ -1,30 +1,25 @@
 import Activities from "../../models/activities.js";
 
-async function getActivities(req, res){
+export async function getActivities(req, res){
     try{
-        const { id_user, rol } = req.body;
-        const queries = rol === "ADMIN" ? {} : { users: id_user };
-
-        if(id_user){
+        const { id } = req.body;
             const [activities, total] = await Promise.all([
-                Activities.find(queries).populate({path: "users", select: { password:0,  __v:0 }}),
-                Activities.countDocuments(queries)
+                Activities.find({users: id}).populate({path: "users", select: { password:0,  __v:0 , profileImage: 0}}),
+                Activities.countDocuments({users: id})
             ]);
-    
+            
             return res.status(200).json({
                 total,
                 activities
             });
-        }else{
-            return res.status(404).json({result: "id_user is required"});
-        }
+
     }catch(err){
         console.log(err);
-        return res.status(404).json({ result: "Activities not found" });
+        return res.status(404).json({ result: "Las actividades no se encontraron, Intentalo de Nuevo" });
     }
 }
 
-async function createActivity(req, res) {
+export async function createActivity(req, res) {
     try{
         const { 
             name,
@@ -51,17 +46,17 @@ async function createActivity(req, res) {
         newActivity.save();
 
         return res.status(200).json({
-            result: "activity created successfully",
+            result: "La actividad fue creada exitosamente.",
             activity: newActivity
         });
 
     }catch(err){
         console.log(err);
-        return res.status(404).json({ result: "activity not created" });
+        return res.status(404).json({ result: "No fue posible crear la actividad." });
     }
 }
 
-async function updateActivity(req, res){
+export async function updateActivity(req, res){
     try{
         const { id } = req.params;
         const { finished } = req.body;
@@ -79,8 +74,3 @@ async function updateActivity(req, res){
     }
 }
 
-export {
-    getActivities,
-    createActivity,
-    updateActivity
-}
